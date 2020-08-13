@@ -127,3 +127,132 @@ def game_hash
 end
 
 # Write code here
+def num_points_scored(player_name)
+	game_hash.each do |location, team_data|
+		#iterating over the first layer
+	team_data.each do |k, v|
+		#iterating over the second layer
+		if k == :players 
+			v.each do |x|
+			# iterated over array of players and then worked on value
+			# binding.pry
+			if x[:player_name] == player_name
+			# if a players_name equal to name that passed return number of points.
+			#finding player by name and returning points
+			return x[:points]
+			end
+		  end
+		end
+	  end
+	end
+end
+
+def shoe_size(player_name)
+	game_hash.each do |location, team_data|
+		#iterating over the first layer
+	team_data.each do |k, v|
+		#iterating over the second layer
+		if k == :players 
+			v.each do |x|
+			if x[:player_name] == player_name
+			return x[:shoe]
+			end
+		  end
+		end
+	  end
+	end
+end
+
+def team_colors(team_name)
+	game_hash.each do |location, team_data|
+		if team_data[:team_name] == team_name
+			return team_data[:colors]
+		end
+	end
+	# game_hash.each do |location, team_data|
+	# #iterating over the first layer
+	# team_data.each do |k, v|
+	# 	if k == :colors 
+	# || :team_name == name
+	# 		# binding.pry
+	# 		return v
+	# 		end
+	#   	end
+	# end
+end
+
+
+
+def team_names
+	team_names = []
+	team_names << game_hash[:home][:team_name]
+	team_names << game_hash[:away][:team_name]
+	team_names
+
+# 	game_hash.each do |location, team_data|
+# 		# binding.pry
+# 		if team_data == :team_name
+# 			return team_data
+# #  			binding.pry
+# #  			return team_data
+#  		end
+#   	end
+end
+
+def player_numbers(team_name)
+	jersey_number = []
+	game_hash.each do |location, team_data|
+		if team_data[:team_name] == team_name
+			# binding.pry
+			team_data.each do |k, v|
+				if k == :players
+					v.each do |x|
+					jersey_number << x[:number]
+				# binding.pry
+					end
+				  end
+				end
+			end
+		end
+	jersey_number
+end
+
+def player_stats(player_name)
+	game_hash.each do |location, team_data|
+		team_data.each do |k, v|
+			if k == :players
+				v.each do |x|
+					if x[:player_name] == player_name
+						# binding.pry
+						x.delete(:player_name)
+						return x
+					end
+				end
+			end
+		end
+	end
+end
+
+def big_shoe_rebounds
+	largest_shoe_size = 0
+	rebounds = 0
+
+	game_hash.each do |location, team_data|
+		team_data.each do |k, v|
+			# k= attributes & v =team info
+			if k == :players
+				v.each do |x|
+					# x equal to each player
+					# binding.pry
+					if x[:shoe] > largest_shoe_size
+						# binding.pry
+						largest_shoe_size = x[:shoe]
+						rebounds = x[:rebounds]
+						# need compare sizes
+					end
+				end
+			end
+		end
+	end
+	rebounds
+end
